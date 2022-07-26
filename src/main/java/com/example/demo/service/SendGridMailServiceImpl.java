@@ -38,9 +38,10 @@ public class SendGridMailServiceImpl implements SendGridMailService {
     @Value("${mail.temp}")
     private String mailTemp;
     @Override
-    public void sendMail(List<String> sendToEmails, List<String> ccEmails, List<String> bccEmails, String abc) {
+    public void sendMail(List<String> sendToEmails, List<String> ccEmails, List<String> bccEmails, String abc, String project) {
         Map<String, Object> mapTemplateData = new HashMap<>();
-        mapTemplateData.put("key", abc);
+        mapTemplateData.put("name", abc);
+        mapTemplateData.put("project", project);
         Mail mail = buildMailToSend(sendToEmails, ccEmails, bccEmails, mapTemplateData);
         send(mail);
     }

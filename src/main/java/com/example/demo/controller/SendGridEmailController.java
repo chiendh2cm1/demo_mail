@@ -21,7 +21,8 @@ public class SendGridEmailController {
                 Collections.singletonList("chiplove1821994@gmail.com"),
                 null,
                 null,
-                "day la test"
+                "test name",
+                "test project"
         );
     }
 }
