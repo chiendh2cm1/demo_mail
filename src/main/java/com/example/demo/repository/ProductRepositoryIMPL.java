@@ -58,6 +58,13 @@ public class ProductRepositoryIMPL implements ProductRepository {
         return updateResult.getModifiedCount() > 0;
     }
 
+    @Override
+    public void deleteProduct(long id) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("id").is(id));
+        mongoTemplate.remove(query, Product.class);
+    }
+
     private Query getQuery(long id) {
         Query query = new Query();
         query.addCriteria(Criteria.where("_id").is(id));

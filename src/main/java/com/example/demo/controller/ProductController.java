@@ -7,6 +7,7 @@ import com.example.demo.contance.PagingConstants;
 import com.example.demo.model.Product;
 import com.example.demo.model.ProductReponse;
 import com.example.demo.service.*;
+import org.bouncycastle.asn1.ocsp.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -51,9 +52,16 @@ public class ProductController {
     }
 
     @PostMapping("/product")
-    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
-        product.setId(sequenceGeneratorService.generateSequence(product.SEQUENCE_NAME));
-        return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
+    public ReponseData createProduct(@RequestBody Product product) {
+        ReponseData reponseData = new ReponseData();
+        try {
+            product.setId(sequenceGeneratorService.generateSequence(Product.SEQUENCE_NAME));
+            reponseData.setData(productService.save(product));
+            reponseData.setStatus("success");
+        } catch (Exception ex) {
+            reponseData.setStatus("error");
+        }
+        return reponseData;
     }
 
 
@@ -105,14 +113,28 @@ public class ProductController {
     public ReponseData updateProduct(@PathVariable(value = "id", required = false) long id,
                                      @RequestBody Product product) {
         ReponseData reponseData = new ReponseData();
-        boolean update = productService.updateProduct(id, product);
-        if (update) {
-            reponseData.setStatus("success");
-        } else {
-            reponseData.setStatus("error");
+        try {
+            boolean update = productService.updateProduct(id, product);
+            if (update) {
+                reponseData.setStatus("success");
+            } else {
+                reponseData.setStatus("error");
+            }
+        } catch (Exception ex) {
+            reponseData.setEx("error");
         }
         return reponseData;
     }
 
-
+    @DeleteMapping("product/{id}")
+    public ReponseData deleteProduct(@PathVariable(value = "id", required = false) long id) {
+        ReponseData reponseData = new ReponseData();
+        try {
+            productService.deleleProduct(id);
+            reponseData.setStatus("success");
+        } catch (Exception ex) {
+            reponseData.setEx("error");
+        }
+        return reponseData;
+    }
 }

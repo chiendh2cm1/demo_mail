@@ -12,4 +12,5 @@ boolean updateProduct(long id, Product product);
 Product getProductById(long id);
 List<Product> getList();
 Product save(Product product);
+void deleleProduct(long id);
 }

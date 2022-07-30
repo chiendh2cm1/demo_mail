@@ -15,5 +15,5 @@ public interface ProductRepository {
 
 Page<Product> findProductPage (Pageable pageable);
 boolean updateProduct(long id, Product product);
-
+void deleteProduct(long id);
 }
