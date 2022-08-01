@@ -22,10 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -42,6 +39,8 @@ public class ProductController {
     @GetMapping("/product")
     public ResponseEntity<List<Product>> getAllProduct() {
         List<Product> products = productService.getList();
+        long a = productService.getTimeEndInDay();
+        System.out.println(a);
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
