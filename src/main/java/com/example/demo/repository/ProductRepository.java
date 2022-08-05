@@ -13,7 +13,9 @@ public interface ProductRepository {
 
     Product getById(long id);
 
-Page<Product> findProductPage (Pageable pageable);
-boolean updateProduct(long id, Product product);
-void deleteProduct(long id);
+    Page<Product> findProductPage(Pageable pageable);
+
+    boolean updateProduct(long id, Product product);
+
+    void deleteProduct(long id);
 }
