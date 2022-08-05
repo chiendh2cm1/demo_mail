@@ -42,7 +42,7 @@ public class ProductRepositoryIMPL implements ProductRepository {
         query.with(pageable);
         int startRecord = pageable.getPageNumber() * pageable.getPageSize();
         query.skip(startRecord).limit(pageable.getPageSize());
-        List<Product> products = mongoTemplate.findAll(Product.class);
+        List<Product> products = mongoTemplate.find(query, Product.class);
         long count = mongoTemplate.count(query.skip(-1).limit(-1), Product.class);
         return new PageImpl<>(products, pageable, count);
     }
