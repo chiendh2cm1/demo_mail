@@ -67,6 +67,8 @@ public class ProductController {
     @GetMapping("/export")
     public ResponseEntity<Resource> exportListProduct() {
         System.out.println("test lỗi");
+        System.out.println("test 3");
+        System.out.println("test 4");
         try {
             List<String> listHeader = Arrays.asList("No", "productName", "price", "description");
             DateFormat dateFormatter = new SimpleDateFormat("ddMMyy");
